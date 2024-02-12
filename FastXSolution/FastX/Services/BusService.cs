@@ -147,38 +147,50 @@ namespace FastX.Services
                 // Implement logic to filter available buses based on origin, destination, and travel date
                 var buses = await _busRepository.GetAsync();
                 var availableBuses = buses
-                    .Where(b => b.BusRoute!=null && b.BusRoute.Any(r => r.Route!=null && r.Route.Origin == origin &&
+                    .Where(b => b.BusRoute != null && b.BusRoute.Any(r => r.Route != null && r.Route.Origin == origin &&
                                                       r.Route.Destination == destination &&
-                                                      r.Route.TravelDate == travelDate.Date))
+                                                      r.Route.TravelDate == travelDate))
                     .ToList();
-
-
-
-
-                if (availableBuses == null)
+                _logger.LogInformation($"Origin: {origin}, Destination: {destination}, TravelDate: {travelDate}");
+                _logger.LogInformation($"Number of available buses: {availableBuses.Count}");
+                foreach (var bus in availableBuses)
                 {
-                    // Handle the case where availableBuses is null (e.g., return an empty list or throw an exception)
-                    return new List<BusDTOForUser>();
+                    _logger.LogInformation($"Bus ID: {bus.BusId}, Bus Name: {bus.BusName}, Bus Type: {bus.BusType}");
                 }
 
+
+
+                //if (availableBuses == null)
+                //{
+                //    // Handle the case where availableBuses is null (e.g., return an empty list or throw an exception)
+                //    return new List<BusDTOForUser>();
+                //}
+
+                //if (availableBuses == null)
+                //{
+                //    throw new BusNotFoundException();
+                //}
                 if (!availableBuses.Any())
                 {
                     throw new BusNotFoundException();
                 }
+                //_logger.LogInformation($"Origin: {origin}, Destination: {destination}, TravelDate: {travelDate}");
+                //_logger.LogInformation($"{availableBuses}");
 
                 return availableBuses.Select(bus => new BusDTOForUser
                 {
                     BusId = bus.BusId,
-                    BusName = bus.BusName ?? "N/A",
-                    BusType = bus.BusType ?? "N/A",
+                    BusName = bus.BusName,
+                    BusType = bus.BusType,
                     Origin = origin,
                     Destination = destination
                 }).ToList();
+                //return buses;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error while getting available buses: {ex.Message}");
-                throw new BusNotFoundException();
+                throw ;
             }
         }
 

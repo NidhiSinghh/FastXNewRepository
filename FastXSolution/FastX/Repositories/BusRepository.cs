@@ -98,7 +98,7 @@ namespace FastX.Repositories
         
         public async Task<List<Bus>> GetAsync()
         {
-            var buses = await _context.Buses.Include(b=>b.BusRoute).ToListAsync();
+            var buses = await _context.Buses.Include(b=>b.BusRoute).ThenInclude(b=>b.Route).ToListAsync();
             if (buses == null)
             {
                 throw new BusNotFoundException();

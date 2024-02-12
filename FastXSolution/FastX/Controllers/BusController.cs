@@ -67,6 +67,7 @@ namespace FastX.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+        [HttpGet("search")]
 
         public async Task<ActionResult<List<BusDTOForUser>>> SearchBusesAsync(string origin, string destination, DateTime date,string busType)
         {
@@ -77,6 +78,7 @@ namespace FastX.Controllers
 
                 return Ok(availableBuses);
             }
+
             catch (BusNotFoundException ex)
             {
                 _logger.LogError($"BusNotFoundException: {ex.Message}");

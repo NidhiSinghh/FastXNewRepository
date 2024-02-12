@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FastX.Repositories
 {
-    public class BookingRepository:IRepository<int, Booking>,IBookingRepository<int,Booking>
+    public class BookingRepository:IBookingRepository<int,Booking>
     {
         private readonly FastXContext _context;
 
@@ -23,14 +23,14 @@ namespace FastX.Repositories
     public async Task<Booking> Delete(int key)
     {
         var booking = await GetAsync(key);
-        _context?.Bookings.Remove(booking);
+        _context.Bookings.Remove(booking);
         _context.SaveChanges();
         return booking;
     }
 
     public async Task<List<Booking>> GetAsync()
     {
-        var bookings = _context.Bookings.ToList(); //
+        var bookings = await _context.Bookings.ToListAsync(); //
         return bookings;
     }
 

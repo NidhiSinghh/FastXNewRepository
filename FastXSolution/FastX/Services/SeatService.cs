@@ -2,7 +2,9 @@
 using FastX.Interfaces;
 using FastX.Models;
 using FastX.Models.DTOs;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
+using System;
 
 namespace FastX.Services
 {
@@ -11,24 +13,25 @@ namespace FastX.Services
         //private readonly IRepository<int, Seat> _repository;
         //private readonly IRepository<int, Seat> _seatRepository;
         private readonly IRepository<int, Bus> _busRepository;
-        private readonly IRepository<int, Booking> _bookingRepository;
+        private readonly IBookingRepository<int, Booking> _bookingRepository;
         private readonly IRepository<int, Routee> _routeRepository;
         private readonly IRepository<int, Ticket> _ticketRepository;
+        private readonly ISeatRepository<int, Seat> _seatRepository;
         private readonly ILogger<BusService> _logger;
 
         public SeatService(
              //IBusRepository busRepository,
              //IRepository<int, Seat> repository,
-             //IRepository<int, Seat> seatRepository,
+             ISeatRepository<int, Seat> seatRepository,
              IRepository<int, Bus> busRepository,
              IRepository<int, Ticket> ticketRepository,
              IRepository<int, Routee> routeRepository,
-             IRepository<int, Booking> bookingRepository,
+             IBookingRepository<int, Booking> bookingRepository,
         ILogger<BusService> logger)
         {
             //_busRepository = busRepository;
             //_repository = repository;
-            //_seatRepository = seatRepository;
+            _seatRepository = seatRepository;
             _busRepository = busRepository;
             _routeRepository = routeRepository;
             _ticketRepository = ticketRepository;
@@ -86,6 +89,18 @@ namespace FastX.Services
 
         //}
 
+        public async Task ChangeSeatAvailablityAsync(int id)
+        {
+            var seat = await _seatRepository.GetAsync(id);
+            if (seat != null)
+            {
+                seat.IsAvailable = false;
+                await _seatRepository.Update(seat);
+
+            }
+
+        }
+
         public async Task<List<SeatDTOForUser>> GetAvailableSeats(int busId)
         {
             try
@@ -123,16 +138,32 @@ namespace FastX.Services
 
         }
 
+        
+
         public async Task<bool> CheckWhetherSeatIsAvailableForBooking(int busId, int seatId, DateTime date)
         {
-           
+            try
+            {
+                var doesBusExist =await _busRepository.GetAsync(busId);
+                if (doesBusExist == null)
+                {
+                    throw new BusNotFoundException();
+                }
+                var seat = await _seatRepository.GetAsync(busId,seatId);
+
+                if (seat != null && seat.IsAvailable == false)
+                {
+                    // The seat is available for booking
+                    throw new NoSeatsAvailableException();
+                }
+
                 var tickets = await _ticketRepository.GetAsync();
                 var isTicketAvailable = tickets.Any(t => t.SeatId == seatId && t.BusId == busId);
 
-                ///_logger.LogInformation($"isTicketAvailable{isTicketAvailable}");
+                _logger.LogInformation($"isTicketAvailable{isTicketAvailable}");
                 if (isTicketAvailable == true)
                 {
-                    
+
 
 
                     var isBookingComplete = tickets.Any(t => t.SeatId == seatId && t.BusId == busId &&
@@ -140,20 +171,45 @@ namespace FastX.Services
                                                  t.Booking.BusId == busId &&
                                                  t.Booking.BookedForWhichDate == date &&
                                                  t.Booking.Status == "complete");
+
                     _logger.LogInformation($"isBookingComplete{isBookingComplete}");
                     return !isBookingComplete;
                 }
                 else
                 {
-                   // throw new NoTicketsAvailableException();
+                    // throw new NoTicketsAvailableException();
                     return true;
                 }
+            }
+            catch(Exception ex){
+                _logger.LogError($"An error occurred in CheckWhetherSeatIsAvailableForBooking: {ex.Message}");
+                throw;
+
+            }
+
+                  
 
 
 
         }
 
-        
+        public async Task<float> GetSeatPriceAsync(int seatId,int busId)
+        {
+            // Assuming _context is your Entity Framework DbContext
+            var seat = await _seatRepository.GetAsync(busId, seatId);
+
+            if (seat != null)
+            {
+                return seat.SeatPrice;
+            }
+            else
+            {
+                throw new NoSeatsAvailableException();
+            }
+        }
+
+
+
 
         ////DateTime date;
         ////var availableSeats = await GetAvailableSeats(busId);
@@ -187,9 +243,9 @@ namespace FastX.Services
         //{
         //    return true;
         //}
-    
-   
-    public async Task ChangeJourneyStatus()
+
+
+        public async Task ChangeJourneyStatus()
         {
             var currentDate = DateTime.Now;
             var routes = await _routeRepository.GetAsync();

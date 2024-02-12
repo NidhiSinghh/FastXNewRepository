@@ -41,10 +41,10 @@ namespace FastX.Services
         public async Task<List<Ticket>> GetTicketList()
         {
             var ticket = await _ticketRepository.GetAsync();
-            if (ticket == null)
-            {
-                throw new NoTicketsAvailableException();
-            }
+            //if (ticket == null)
+            //{
+            //    throw new NoTicketsAvailableException();
+            //}
             return ticket;
         }
     }

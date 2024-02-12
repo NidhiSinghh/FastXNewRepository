@@ -1,5 +1,5 @@
 ﻿using FastX.Contexts;
-<<<<<<< HEAD
+
 using FastX.Exceptions;
 using FastX.Interfaces;
 using FastX.Models;
@@ -8,16 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace FastX.Repositories
 {
-    public class SeatRepository : IRepository<int, Seat>,ISeatRepository<int,Seat>
-=======
-using FastX.Interfaces;
-using FastX.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace FastX.Repositories
-{
-    public class SeatRepository : IRepository<int, Seat>
->>>>>>> b143ff912861d8a28c98506ceb6837f83c499230
+    public class SeatRepository : ISeatRepository<int,Seat>
     {
         private readonly FastXContext _context;
 
@@ -38,21 +29,17 @@ namespace FastX.Repositories
         public async Task<List<Seat>> GetAsync()
         {
             var seats = await _context.Seats.ToListAsync();
-<<<<<<< HEAD
+
             if (seats == null){
                 throw new NoSeatsAvailableException();
             }
-=======
->>>>>>> b143ff912861d8a28c98506ceb6837f83c499230
+
             return seats;
         }
 
-        public Task<Seat> GetAsync(int key)
-        {
-            throw new NotImplementedException();
-        }
+        
 
-<<<<<<< HEAD
+
         public async Task<Seat> GetAsync(int key1, int key2)
         {
             var seats = await GetAsync();
@@ -64,11 +51,22 @@ namespace FastX.Repositories
             throw new NoSeatsAvailableException();
         }
 
-=======
->>>>>>> b143ff912861d8a28c98506ceb6837f83c499230
-        public Task<Seat> Update(Seat item)
+        public async Task<Seat> GetAsync(int key)
         {
-            throw new NotImplementedException();
+            var seats = await GetAsync();
+            var seat = seats.FirstOrDefault(e => e.SeatId == key);
+            if (seat != null)
+                return seat;
+            // throw new NoBookingsAvailableException();
+            return null;
+        }
+
+        public async Task<Seat> Update(Seat item)
+        {
+            var seat = await GetAsync(item.SeatId);
+            _context.Entry<Seat>(item).State = EntityState.Modified;
+            _context.SaveChanges();
+            return item;
         }
     }
 }
