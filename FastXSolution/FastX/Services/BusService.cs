@@ -15,12 +15,12 @@ namespace FastX.Services
 
 
         public BusService(
-            //IBusRepository busRepository,
+           
             IRepository<int,Bus> busRepository,
              IRepository<int, BusOperator> busOperatorRepository,
             ILogger<BusService> logger)
         {
-            //_busRepository = busRepository;
+            
             _busRepository = busRepository;
             _busOperatorRepository = busOperatorRepository;
             _logger=logger;
@@ -131,20 +131,17 @@ namespace FastX.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error deleting bus");
-                throw; // Re-throw the exception for the caller to handle
+                throw; 
             }
         }
 
-        //public Task<List<BusDTOForUser>> GetAvailableBuses(string origin, string destination, DateTime travelDate)
-        //{
-        //    throw new NotImplementedException();
-        //}
+      
 
         public async Task<List<BusDTOForUser>> GetAvailableBuses(string origin, string destination, DateTime travelDate)
         {
             try
             {
-                // Implement logic to filter available buses based on origin, destination, and travel date
+                //to filter available buses based on origin, destination, and travel date
                 var buses = await _busRepository.GetAsync();
                 var availableBuses = buses
                     .Where(b => b.BusRoute != null && b.BusRoute.Any(r => r.Route != null && r.Route.Origin == origin &&
@@ -159,17 +156,6 @@ namespace FastX.Services
                 }
 
 
-
-                //if (availableBuses == null)
-                //{
-                //    // Handle the case where availableBuses is null (e.g., return an empty list or throw an exception)
-                //    return new List<BusDTOForUser>();
-                //}
-
-                //if (availableBuses == null)
-                //{
-                //    throw new BusNotFoundException();
-                //}
                 if (!availableBuses.Any())
                 {
                     throw new BusNotFoundException();
@@ -185,7 +171,7 @@ namespace FastX.Services
                     Origin = origin,
                     Destination = destination
                 }).ToList();
-                //return buses;
+               
             }
             catch (Exception ex)
             {
@@ -194,6 +180,42 @@ namespace FastX.Services
             }
         }
 
+
+
+        //public async Task<Bus> AddBus(Bus bus)
+        //{
+        //    bus = await _repo.Add(bus);
+        //    return bus;
+        //}
+
+
+        //public async Task<Bus> DeleteBus(int id)
+        //{
+        //    var bus = await GetBus(id);
+        //    if (bus != null)
+        //    {
+        //        bus = await _repo.Delete(id);
+        //        return bus;
+        //    }
+        //    throw new NoSuchBusException();
+
+        //}
+
+        public async Task<Bus> GetBus(int id)
+        {
+            var bus = await _busRepository.GetAsync(id);
+            return bus;
+
+        }
+        public async Task<List<Bus>> GetBusList()
+        {
+            var bus = await _busRepository.GetAsync();
+            if (bus == null)
+            {
+                throw new BusNotFoundException();
+            }
+            return bus;
+        }
     }
 }
 

@@ -38,5 +38,21 @@ namespace FastX.Repositories
         {
             throw new NotImplementedException();
         }
+        //----------------------------------
+
+        //public async Task<Admin> Delete(int key)
+        //{
+        //    var admin = await GetAsync(key);
+        //    _context?.Admins.Remove(admin);
+        //    _context.SaveChanges();
+        //    return admin;
+        //}
+        //public async Task<Admin> Delete(string key)
+        //{
+        //    var admin = await GetAsync(key);
+        //    _context?.Admins.Remove(admin);
+        //    _context.SaveChanges();
+        //    return admin;
+        //}
     }
 }

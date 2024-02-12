@@ -18,3 +18,4 @@ namespace FastX.Interfaces
         void RemoveBusAmenity(int busId, string amenityName);
     }
 }
+

@@ -21,8 +21,10 @@ namespace FastX.Controllers
             _amenityService = amenityService;
             _logger = logger;
         }
+        //Gets amenity directly from amenity table
 
-        [HttpGet]
+        
+        [HttpGet("GetAmenityFromAmenityTable")]
         public async Task<IActionResult> GetAmenities()
         {
             try

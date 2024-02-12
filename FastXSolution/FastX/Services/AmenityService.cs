@@ -95,7 +95,7 @@ namespace FastX.Services
 
                 if (_repo.Exists(busId, amenity.AmenityId))
                 {
-                    throw new AmenityAlreadyExistsException("Amenity already exists for this bus");
+                    throw new AmenityAlreadyExistsException();
                 }
 
                 _repo.AddBusAmenity(new BusAmenity { BusId = busId, AmenityId = amenity.AmenityId });

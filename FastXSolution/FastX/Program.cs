@@ -73,14 +73,12 @@ namespace FastX
             });
 
             #region Repository
-            builder.Services.AddScoped<IRepository<int, Routee>, RouteeRepository>();
+            builder.Services.AddScoped<IRepository<int, Routee>, RouteRepository>();
             builder.Services.AddScoped<IRepository<int, Bus>, BusRepository>();
-           // builder.Services.AddScoped<IRepository<int, Payment>, PaymentRepository>();
+            builder.Services.AddScoped<IRepository<int, Payment>, PaymentRepository>();
             builder.Services.AddScoped<IRepository<string, AllUser>, AllUserRepository>();
             builder.Services.AddScoped<IRepository<int, Admin>, AdminRepository>();
-            //builder.Services.AddScoped<IRepository<int, Booking>, BookingRepository>();
-           
-            builder.Services.AddScoped<IBookingRepository<int, Booking>, BookingRepository >();
+            builder.Services.AddScoped<IBookingRepository<int, Booking>, BookingRepository>();
             builder.Services.AddScoped<IRepository<int, BusOperator>, BusOperatorRepository>();
             builder.Services.AddScoped<IRepository<int, User>, UserRepository>();
             builder.Services.AddScoped<ISeatRepository<int, Seat>, SeatRepository>();
@@ -90,23 +88,18 @@ namespace FastX
 
 
             #region Service
-            // builder.Services.AddScoped<IRouteeService, RouteeService>();
+            builder.Services.AddScoped<IRouteeService, RouteService>();
             builder.Services.AddScoped<IBusService, BusService>();
-            //builder.Services.AddScoped<IPaymentService, PaymentService>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IAllUserService, AllUserService>();
             builder.Services.AddScoped<ISeatService, SeatService>();
             builder.Services.AddScoped<ITicketService, TicketService>();
-
             builder.Services.AddScoped<IAmenityService, AmenityService>();
             builder.Services.AddScoped<IBusOperatorService, BusOperatorService>();
-
             builder.Services.AddScoped<ISeatService, SeatService>();
-            //builder.Services.AddScoped<IRepository<int, Routee>, RouteeRepository>();
-            //builder.Services.AddScoped<IUserService, UserService>();
-            //builder.Services.AddScoped<IRepository<int, User>, UserRepository>();
-
+        
 
             #endregion
 

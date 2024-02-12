@@ -10,8 +10,6 @@ namespace FastX.Models
         public string Role { get; set; }
         public byte[] Key { get; set; }
 
-
-        // Specific properties for each role
         public User? User { get; set; }
         public BusOperator? BusOperator { get; set; }
         public Admin? Admin { get; set; }

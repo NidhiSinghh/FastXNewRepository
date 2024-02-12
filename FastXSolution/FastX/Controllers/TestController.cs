@@ -11,16 +11,29 @@
 //    [ApiController]
 //    public class TestController : ControllerBase
 //    {
+
+
+//private readonly IPaymentService _paymentService;
 //        private readonly IBusOperatorService _busOperatorService;
 //        private readonly IAmenityService _amenityService;
 //        private readonly ILogger<TestController> _logger;
+//private readonly IRouteeService _routeService;
 
-//        public TestController(IBusOperatorService busOperatorService, IAmenityService amenityService, ILogger<TestController> logger)
+
+//        public TestController(IBusOperatorService busOperatorService,
+//IPaymentService paymentService,
+//IRouteeService routeService
+//        IAmenityService amenityService, ILogger<TestController> logger)
 //        {
 //            _busOperatorService = busOperatorService;
 //            _amenityService = amenityService;
+//_paymentService = paymentService;
+//_routeService = routeService;
 //            _logger = logger;
 //        }
+
+
+//---------------------Amenity CRUD
 
 //        ////This method will add Amenity directly to the Amenity table
 //        [HttpPost("AddAmenitiesDirectlyToAmenitiesTable")]
@@ -87,6 +100,76 @@
 //            }
 //        }
 
+//----------------------------------------------------
+
+//----------------Route CRUD-------------------
+//[HttpPost]
+//public async Task<Routee> Post(Routee Routee)
+//{
+//    var addedRoutee = await _routeService.AddRoutee(Routee);
+//    return addedRoutee;
+//}
+
+
+
+//[HttpGet]
+//public async Task<List<Routee>> GetAll()
+//{
+//    var routee = await _routeService.GetRouteeList();
+//    return routee;
+//}
+
+//[Route("/GetRouteById")]
+//[HttpGet]
+//public async Task<Routee> GetById(int id)
+//{
+//    var routee = await _routeService.GetRoutee(id);
+//    return routee;
+//}
+
+//[HttpDelete]
+//public async Task<Routee> Delete(int id)
+//{
+//    var routee = await _routeService.DeleteRoutee(id);
+//    return routee;
+//}
+
+
+
+//--------------------------------------------------
+
+
+//----------------Payment CRUD---------------------
+
+//[HttpPost]
+//public async Task<Payment>Post(Payment payment) 
+//{
+//    var addedPayment = await _paymentService.AddPayment(payment);
+//    return addedPayment;
+//}
+//[HttpGet]
+//public async Task<List<Payment>>GetAll()
+//{
+//    var Payment = await _paymentService.GetPaymentList();
+//    return Payment;
+//}
+//[Route("/GetPaymentById")]
+//[HttpGet]
+//public async Task<Payment> GetById(int id)
+//{
+//    var payment = await _paymentService.GetPaymentBy(id);
+//    return payment;
+//}
+
+////[HttpDelete]
+////public async Task<Payment> Delete(int id)
+////{
+////    var payment = await _paymentService.DeletePayment(id);
+////    return payment;
+////}
+///
+
+//-----------------------
 
 //    }
 //}

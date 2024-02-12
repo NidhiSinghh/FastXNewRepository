@@ -10,8 +10,6 @@ namespace FastX.Services
 {
     public class SeatService : ISeatService
     {
-        //private readonly IRepository<int, Seat> _repository;
-        //private readonly IRepository<int, Seat> _seatRepository;
         private readonly IRepository<int, Bus> _busRepository;
         private readonly IBookingRepository<int, Booking> _bookingRepository;
         private readonly IRepository<int, Routee> _routeRepository;
@@ -20,8 +18,7 @@ namespace FastX.Services
         private readonly ILogger<BusService> _logger;
 
         public SeatService(
-             //IBusRepository busRepository,
-             //IRepository<int, Seat> repository,
+            
              ISeatRepository<int, Seat> seatRepository,
              IRepository<int, Bus> busRepository,
              IRepository<int, Ticket> ticketRepository,
@@ -29,8 +26,6 @@ namespace FastX.Services
              IBookingRepository<int, Booking> bookingRepository,
         ILogger<BusService> logger)
         {
-            //_busRepository = busRepository;
-            //_repository = repository;
             _seatRepository = seatRepository;
             _busRepository = busRepository;
             _routeRepository = routeRepository;
@@ -152,8 +147,8 @@ namespace FastX.Services
                 var seat = await _seatRepository.GetAsync(busId,seatId);
 
                 if (seat != null && seat.IsAvailable == false)
-                {
-                    // The seat is available for booking
+                { 
+                   
                     throw new NoSeatsAvailableException();
                 }
 
@@ -177,7 +172,7 @@ namespace FastX.Services
                 }
                 else
                 {
-                    // throw new NoTicketsAvailableException();
+                    
                     return true;
                 }
             }
@@ -195,7 +190,7 @@ namespace FastX.Services
 
         public async Task<float> GetSeatPriceAsync(int seatId,int busId)
         {
-            // Assuming _context is your Entity Framework DbContext
+           
             var seat = await _seatRepository.GetAsync(busId, seatId);
 
             if (seat != null)
@@ -207,44 +202,6 @@ namespace FastX.Services
                 throw new NoSeatsAvailableException();
             }
         }
-
-
-
-
-        ////DateTime date;
-        ////var availableSeats = await GetAvailableSeats(busId);
-        ////bool isSeatAvailable = availableSeats.Any(seat => seat.SeatId == seatId);
-        ////_logger.LogInformation($"{isSeatAvailable}");
-        //var tickets = await _ticketRepository.GetAsync();
-        //var isTicketAvailable = tickets.Any(t => t.SeatId == seatId && t.BusId == busId);
-
-        /////_logger.LogInformation($"isTicketAvailable{isTicketAvailable}");
-        //if (isTicketAvailable == true)
-        //{
-        //    //var booking = await _bookingRepository.GetAsync(); 
-        //    //var isBookingComplete = booking.Any(b => b.BusId == busId &&
-        //    //                                         b.Tickets != null &&
-        //    //                                         b.Tickets.Any(t => t.SeatId == seatId) &&
-        //    //                                         b.Status == "complete");
-
-
-        //    var isBookingComplete = tickets.Any(t => t.SeatId == seatId && t.BusId == busId &&
-        //                                 t.Booking != null &&
-        //                                 t.Booking.BusId == busId &&
-        //                                 t.Booking.BookedForWhichDate == date &&
-        //                                 t.Booking.Status == "complete");
-        //    _logger.LogInformation($"isBookingComplete{isBookingComplete}");
-        //    return !isBookingComplete;
-        //}
-
-
-
-        //else
-        //{
-        //    return true;
-        //}
-
-
         public async Task ChangeJourneyStatus()
         {
             var currentDate = DateTime.Now;
@@ -263,7 +220,7 @@ namespace FastX.Services
                 {
                     if (busRoute.Route.TravelDate != null && busRoute.Route.TravelDate < currentDate)
                     {
-                        // Assuming you have a property in the BusRoute entity to update the JourneyStatus
+                        
                         busRoute.JourneyStatus = "Completed";
                     }
                 }

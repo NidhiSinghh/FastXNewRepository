@@ -1,15 +1,14 @@
 ﻿using FastX.Contexts;
-using FastX.Exceptions;
 using FastX.Interfaces;
 using FastX.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FastX.Repositories
 {
-    public class RouteeRepository : IRepository<int, Routee>
+    public class RouteRepository : IRepository<int, Routee>
     {
         private readonly FastXContext _context;
-        public RouteeRepository(FastXContext context)
+        public RouteRepository(FastXContext context)
         {
             _context = context;
         }
@@ -26,14 +25,9 @@ namespace FastX.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<List<Routee>> GetAsync()
+        public Task<List<Routee>> GetAsync()
         {
-            var routes = await _context.Routees.Include(b => b.BusRoute).ToListAsync();
-            if (routes == null)
-            {
-                throw new NoSuchRouteeException();
-            }
-            return routes;
+            throw new NotImplementedException();
         }
 
         public Task<Routee> GetAsync(int key)

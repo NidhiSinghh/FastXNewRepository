@@ -9,7 +9,7 @@ namespace FastX.Interfaces
         public Task<List<Seat>> GetSeatList();
         public Task<Seat> GetSeat(int id);
         public Task<Seat> DeleteSeat(int id);
-        //public Task<List<SeatDTOForUser>> GetAvailableSeats(int busId,int seatId);
+     
         public Task<List<SeatDTOForUser>> GetAvailableSeats(int busId);
         public Task ChangeJourneyStatus();
         public Task<bool> CheckWhetherSeatIsAvailableForBooking(int busId, int seatId, DateTime date);

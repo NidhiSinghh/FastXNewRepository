@@ -11,9 +11,18 @@ namespace FastX.Interfaces
         public Task<Bus> DeleteBus(int busId);
 
         public Task<List<BusDTOForUser>> GetAvailableBuses(string origin, string destination, DateTime travelDate);
-        
+
         //Task<List<BusDtoForUser>> SearchBusesAsync(string origin, string destination, DateTime date);
         //Task<List<BusDtoForUser>> SearchBusesAsync(string origin, string destination, DateTime date,string busType);
+
+
+       
+        public Task<List<Bus>> GetBusList();
+        public Task<Bus> GetBus(int id);
+
+        
+
+
 
 
     }

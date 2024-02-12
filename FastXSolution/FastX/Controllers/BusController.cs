@@ -22,7 +22,7 @@ namespace FastX.Controllers
             _logger= logger;
         }
 
-       // [Authorize(Roles = "busoperator")]
+        [Authorize(Roles = "busoperator")]
         [HttpPost("AddBusByBusOperator")]
         public async Task<IActionResult> AddBus(string busName, string busType, int totalSeats, int busOperatorId)
         {
@@ -43,7 +43,7 @@ namespace FastX.Controllers
             }
         }
 
-        //[Authorize(Roles = "busoperator")]
+        [Authorize(Roles = "busoperator")]
         [HttpDelete("DeleteBusByBusOperator")]
         public async Task<IActionResult> DeleteBus(int busId)
         {
@@ -67,6 +67,8 @@ namespace FastX.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+
         [HttpGet("search")]
 
         public async Task<ActionResult<List<BusDTOForUser>>> SearchBusesAsync(string origin, string destination, DateTime date,string busType)

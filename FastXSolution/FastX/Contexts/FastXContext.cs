@@ -8,11 +8,7 @@ namespace FastX.Contexts
         public FastXContext(DbContextOptions<FastXContext> options) : base(options)
         {
         }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Data source=DESKTOP-7RD6P2A\\DEMOINSTANCE;User ID=sa;Password=Eshwar@123;Initial Catalog=dbfastxticket");
-        //}
-
+        
         public DbSet<User> Users { get; set; }
         public DbSet<BusOperator> BusOperators { get; set; }
         public DbSet<Bus> Buses { get; set; }
@@ -29,58 +25,7 @@ namespace FastX.Contexts
         public DbSet<AllUser> AllUsers { get; set; }
         public DbSet<BusRoute> BusRoute { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    // Configure relationships using Fluent API
-
-        //    // User - Booking (One-to-Many)
-        //    modelBuilder.Entity<User>()
-        //        .HasMany(u => u.Bookings)
-        //        .WithOne(b => b.User)
-        //        .HasForeignKey(b => b.UserId);
-
-        //    // BusOperator - Bus (One-to-Many)
-        //    modelBuilder.Entity<BusOperator>()
-        //        .HasMany(op => op.Buses)
-        //        .WithOne(b => b.BusOperator)
-        //        .HasForeignKey(b => b.BusOperatorId);
-
-        //    // Bus - Booking (One-to-Many)
-        //    modelBuilder.Entity<Bus>()
-        //        .HasMany(b => b.Bookings)
-        //        .WithOne(b => b.Bus)
-        //        .HasForeignKey(b => b.BusId);
-
-        //    //// Bus - BusAmenity (One-to-Many)
-        //    //modelBuilder.Entity<Bus>()
-        //    //    .HasMany(b => b.BusAmenities)
-        //    //    .WithOne(ba => ba.Bus)
-        //    //    .HasForeignKey(ba => ba.BusId);
-
-        //    // Booking - Payment (One-to-One)
-        //    modelBuilder.Entity<Booking>()
-        //        .HasOne(b => b.Payment)
-        //        .WithOne(p => p.Booking)
-        //        .HasForeignKey<Payment>(p => p.BookingId);
-
-        //    // Route - RouteStop (One-to-Many)
-        //    modelBuilder.Entity<Routee>()
-        //        .HasMany(r => r.RouteStops)
-        //        .WithOne(rs => rs.Routee)
-        //        .HasForeignKey(rs => rs.RouteId);
-
-        //    // Stop - RouteStop (One-to-Many)
-        //    modelBuilder.Entity<Stop>()
-        //        .HasMany(s => s.RouteStops)
-        //        .WithOne(rs => rs.Stop)
-        //        .HasForeignKey(rs => rs.StopId);
-
-        //    // Bus - Seat (One-to-Many)
-        //    modelBuilder.Entity<Bus>()
-        //        .HasMany(b => b.Seats)
-        //        .WithOne(s => s.Bus)
-        //        .HasForeignKey(s => s.BusId);
-        //}
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
