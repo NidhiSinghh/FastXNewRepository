@@ -1,6 +1,7 @@
 ﻿using FastX.Exceptions;
 using FastX.Interfaces;
 using FastX.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,7 @@ namespace FastX.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles="user")]
         [HttpPost]
         public async Task<IActionResult> MakeBooking(int busId, int seatId, DateTime travelDate, int userId)
         {
