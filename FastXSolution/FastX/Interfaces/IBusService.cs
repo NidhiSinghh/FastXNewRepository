@@ -7,7 +7,10 @@ namespace FastX.Interfaces
     {
         //public Task<List<Bus>> GetBusList();
         //public Task<Bus> GetBus(int id);
-        public Task<Bus> AddBus(string busName, string busType, int totalSeats, int busOperatorId);
+
+
+        //public Task<Bus> AddBus(string busName, string busType, int totalSeats, int busOperatorId);
+        public Task<Bus> AddBus(Bus bus);
         public Task<Bus> DeleteBus(int busId);
 
         public Task<List<BusDTOForUser>> GetAvailableBuses(string origin, string destination, DateTime travelDate);

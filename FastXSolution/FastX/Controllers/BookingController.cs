@@ -1,7 +1,8 @@
 ﻿using FastX.Exceptions;
 using FastX.Interfaces;
 using FastX.Models;
-using Microsoft.AspNetCore.Authorization;
+using FastX.Models.DTOs;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace FastX.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("ReactPolicy")]
     public class BookingController : ControllerBase
     {
         private readonly IBookingService _bookingService;
@@ -25,36 +27,67 @@ namespace FastX.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles="user")]
+        //[HttpPost]
+        //public async Task<IActionResult> MakeBooking(int busId, List<int>seatIds, DateTime travelDate, int userId, int totalSeats)
+        //{
+        //    try
+        //    {
+        //        _logger.LogInformation($"Attempting to make booking for BusId: {busId}, SeatIds: {string.Join(",", seatIds)}, TravelDate: {travelDate}, UserId: {userId}");
+
+        //        await _bookingService.MakeBooking(busId, seatIds, travelDate, userId, totalSeats);
+
+        //        _logger.LogInformation("Booking successful.");
+        //        return Ok();
+        //    }
+        //    catch (BusNotFoundException ex)
+        //    {
+        //        _logger.LogError($"Bus not found. BusId: {busId}. Error: {ex.Message}");
+        //        return NotFound("Bus not found");
+        //    }
+        //    catch (NoSeatsAvailableException ex)
+        //    {
+        //        _logger.LogError($"Seat not found. SeatId: {seatId}, BusId: {busId}. Error: {ex.Message}");
+        //        return NotFound("Seat not found");
+        //    }
+
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError($"An unexpected error occurred. Error: {ex.Message}");
+        //        return StatusCode(500, "Internal Server Error");
+        //    }
+        //}
+
+
+
         [HttpPost]
-        public async Task<IActionResult> MakeBooking(int busId, int seatId, DateTime travelDate, int userId)
+        public async Task<IActionResult> MakeBooking(BookingDTO booking)
         {
             try
             {
-                _logger.LogInformation($"Attempting to make booking for BusId: {busId}, SeatId: {seatId}, TravelDate: {travelDate}, UserId: {userId}");
+                //_logger.LogInformation($"Attempting to make booking for BusId: {busId}, SeatIds: {string.Join(",", seatIds)}, TravelDate: {travelDate}, UserId: {userId}");
 
-                await _bookingService.MakeBooking(busId, seatId, travelDate, userId);
+                await _bookingService.MakeBooking(booking.BusId, booking.SeatIds, booking.TravelDate, booking.UserId, booking.TotalSeats);
 
                 _logger.LogInformation("Booking successful.");
                 return Ok();
             }
             catch (BusNotFoundException ex)
             {
-                _logger.LogError($"Bus not found. BusId: {busId}. Error: {ex.Message}");
+                //_logger.LogError($"Bus not found. BusId: {busId}. Error: {ex.Message}");
                 return NotFound("Bus not found");
             }
             catch (NoSeatsAvailableException ex)
             {
-                _logger.LogError($"Seat not found. SeatId: {seatId}, BusId: {busId}. Error: {ex.Message}");
-                return NotFound("Seat not found");
+                //_logger.LogError($"No seats available for booking. BusId: {busId}, Error: {ex.Message}");
+                return NotFound("No seats available for booking");
             }
-            
             catch (Exception ex)
             {
-                _logger.LogError($"An unexpected error occurred. Error: {ex.Message}");
+                //_logger.LogError($"An unexpected error occurred. Error: {ex.Message}");
                 return StatusCode(500, "Internal Server Error");
             }
         }
+
 
 
     }

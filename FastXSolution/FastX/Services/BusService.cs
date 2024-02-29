@@ -45,7 +45,7 @@ namespace FastX.Services
         //        throw new BusNotFoundException();
 
         //    }
-            
+
         //        var busDtos = buses.Select(bus => new BusDto
         //        {
         //            BusId = bus.BusId,
@@ -57,23 +57,50 @@ namespace FastX.Services
         //            Destination = bus.Destination,
         //        }).ToList();
 
-        public async Task<Bus> AddBus(string busName, string busType, int totalSeats, int busOperatorId)
+        //public async Task<Bus> AddBus(string busName, string busType, int totalSeats, int busOperatorId)
+        //{
+        //    try
+        //    {
+        //        // Check if the bus operator exists
+        //        var busOperator = await _busOperatorRepository.GetAsync(busOperatorId);
+        //        if (busOperator == null)
+        //        {
+        //            throw new BusOperatorNotFoundException();
+        //        }
+        //        var bus = new Bus
+        //        {
+        //            BusName = busName,
+        //            BusType = busType,
+        //            TotalSeats = totalSeats,
+        //            BusOperatorId = busOperatorId
+        //        };
+
+        //        return await _busRepository.Add(bus);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error adding bus");
+        //        throw; // Re-throw the exception for the caller to handle
+        //    }
+        //}
+
+        public async Task<Bus> AddBus(Bus bus)
         {
             try
             {
                 // Check if the bus operator exists
-                var busOperator = await _busOperatorRepository.GetAsync(busOperatorId);
+                var busOperator = await _busOperatorRepository.GetAsync(bus.BusOperatorId);
                 if (busOperator == null)
                 {
                     throw new BusOperatorNotFoundException();
                 }
-                var bus = new Bus
-                {
-                    BusName = busName,
-                    BusType = busType,
-                    TotalSeats = totalSeats,
-                    BusOperatorId = busOperatorId
-                };
+                //var bus = new Bus
+                //{
+                //    BusName = busName,
+                //    BusType = busType,
+                //    TotalSeats = totalSeats,
+                //    BusOperatorId = busOperatorId
+                //};
 
                 return await _busRepository.Add(bus);
             }
@@ -84,44 +111,44 @@ namespace FastX.Services
             }
         }
 
-    //    public async Task<List<BusDto>> SearchBusesAsync(string origin, string destination, DateTime date, string busType)
-    //    {
-    //        try
-    //        {
-    //            // Implement logic to filter available buses based on origin, destination, and travel date
-    //            //var availableBuses = _busRepository.GetBusesByRoute(origin, destination);
-    //            var buses = await _busRepository.GetAsync();
-    //            var availableBuses = buses
-    //.Where(b =>
-    //    b.BusRoute != null &&
-    //    b.BusRoute.Any(r =>
-    //        r.Route != null &&
-    //        r.Route.Origin == origin &&
-    //        r.Route.Destination == destination &&
-    //         r.Route.TravelDate == travelDate.Date))
-    //.ToList();
+        //    public async Task<List<BusDto>> SearchBusesAsync(string origin, string destination, DateTime date, string busType)
+        //    {
+        //        try
+        //        {
+        //            // Implement logic to filter available buses based on origin, destination, and travel date
+        //            //var availableBuses = _busRepository.GetBusesByRoute(origin, destination);
+        //            var buses = await _busRepository.GetAsync();
+        //            var availableBuses = buses
+        //.Where(b =>
+        //    b.BusRoute != null &&
+        //    b.BusRoute.Any(r =>
+        //        r.Route != null &&
+        //        r.Route.Origin == origin &&
+        //        r.Route.Destination == destination &&
+        //         r.Route.TravelDate == travelDate.Date))
+        //.ToList();
 
-    //            if (availableBuses == null || !availableBuses.Any())
-    //            {
-    //                throw new BusNotFoundException();
-    //            }
+        //            if (availableBuses == null || !availableBuses.Any())
+        //            {
+        //                throw new BusNotFoundException();
+        //            }
 
-    //            }
-    //            var busDtos = buses.Select(bus => new BusDto
-    //            {
-    //                BusId = bus.BusId,
-    //                BusName = bus.BusName,
-    //                BusType = bus.BusType ,
-    //                Origin = origin,
-    //                Destination = destination
-    //            }).ToList();
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            _logger.LogError($"Error while getting available buses: {ex.Message}");
-    //            throw;
-    //        }
-    //    }
+        //            }
+        //            var busDtos = buses.Select(bus => new BusDto
+        //            {
+        //                BusId = bus.BusId,
+        //                BusName = bus.BusName,
+        //                BusType = bus.BusType ,
+        //                Origin = origin,
+        //                Destination = destination
+        //            }).ToList();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            _logger.LogError($"Error while getting available buses: {ex.Message}");
+        //            throw;
+        //        }
+        //    }
         public async Task<Bus> DeleteBus(int busId)
         {
             try

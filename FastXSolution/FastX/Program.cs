@@ -67,6 +67,16 @@ namespace FastX
                     };
                 });
 
+
+		builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactPolicy", opts =>
+    {
+       // opts.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+        opts.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
+
             builder.Services.AddDbContext<FastXContext>(opts =>
             {
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("fastx"));
@@ -118,7 +128,8 @@ namespace FastX
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+		
+	app.UseCors("ReactPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
 
