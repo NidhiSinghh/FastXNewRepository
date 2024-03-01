@@ -7,7 +7,7 @@ namespace FastX.Services
 {
     public class PaymentService : IPaymentService
     {
-    
+
         private readonly ILogger<PaymentService> _logger;
         private readonly IBookingRepository<int, Booking> _bookingRepository;
         private readonly IRepository<int, Payment> _paymentRepository;
@@ -15,16 +15,16 @@ namespace FastX.Services
         private readonly ISeatService _seatService;
 
         public PaymentService(
-            
+
             IBookingRepository<int, Booking> bookingRepository,
             IRepository<int, Payment> paymentRepository,
             //IRepository<int, Seat> seatRepository,
             ISeatService seatService,
             ILogger<PaymentService> logger)
         {
-           
+
             _logger = logger;
-            _bookingRepository=bookingRepository;
+            _bookingRepository = bookingRepository;
             _paymentRepository = paymentRepository;
             _seatService = seatService;
 
@@ -71,7 +71,7 @@ namespace FastX.Services
                     };
 
                     await _paymentRepository.Add(payment);
-                    
+
 
 
                     _logger.LogInformation($"Payment created successfully. BookingId: {bookingId}, Amount: {totalPrice}");
@@ -107,7 +107,7 @@ namespace FastX.Services
 
                 foreach (var ticket in booking.Tickets)
                 {
-                    float seatPrice = await _seatService.GetSeatPriceAsync(ticket.SeatId,ticket.BusId);
+                    float seatPrice = await _seatService.GetSeatPriceAsync(ticket.SeatId, ticket.BusId);
                     totalPrice += seatPrice;
                 }
 
@@ -124,6 +124,15 @@ namespace FastX.Services
                 throw new Exception("Internal Server Error");
             }
         }
+
+        public async Task<float> FindRefundPrice(int userId, int bookingId)
+        {
+            var payments = await GetPaymentList();
+            var filteredPayments = payments.Where(payment => payment.Booking.UserId == userId &&
+            payment.BookingId == bookingId).ToList();
+            return filteredPayments[0].Amount;
+        }
+
 
     }
 }
