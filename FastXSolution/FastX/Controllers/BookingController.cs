@@ -16,15 +16,23 @@ namespace FastX.Controllers
         private readonly IBookingService _bookingService;
         private readonly ITicketService _ticketService;
         private readonly ILogger<BookingController> _logger;
+        private readonly ISeatService _seatService;
+        private readonly IBusOperatorService _busOperatorService;
+
+
 
         public BookingController(IBookingService bookingService,
             ITicketService ticketService,
-            ILogger<BookingController> logger)
+            ILogger<BookingController> logger,
+            ISeatService seatService,
+            IBusOperatorService busOperatorService)
         {
             _bookingService = bookingService;
             //_seatService = seatService;
             _ticketService = ticketService;
             _logger = logger;
+            _seatService = seatService;
+            _busOperatorService = busOperatorService;
         }
 
         //[HttpPost]
@@ -60,16 +68,16 @@ namespace FastX.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> MakeBooking(BookingDTO booking)
+        public async Task<ActionResult<Booking>> MakeBooking(BookingDTO booking)
         {
             try
             {
                 //_logger.LogInformation($"Attempting to make booking for BusId: {busId}, SeatIds: {string.Join(",", seatIds)}, TravelDate: {travelDate}, UserId: {userId}");
 
-                await _bookingService.MakeBooking(booking.BusId, booking.SeatIds, booking.TravelDate, booking.UserId, booking.TotalSeats);
+                var bookingDetails = await _bookingService.MakeBooking(booking.BusId, booking.SeatIds, booking.TravelDate, booking.UserId, booking.TotalSeats);
 
                 _logger.LogInformation("Booking successful.");
-                return Ok();
+                return Ok(bookingDetails);
             }
             catch (BusNotFoundException ex)
             {
@@ -87,6 +95,144 @@ namespace FastX.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
+
+
+
+
+        [HttpGet("completed/{userId}")]
+        public async Task<ActionResult<List<CompletedBookingDTO>>> GetCompletedBookings(int userId)
+        {
+            try
+            {
+                var completedBookings = await _bookingService.GetCompletedBookings(userId);
+                return Ok(completedBookings);
+            }
+            catch (NoSuchUserException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+        [HttpGet("upcoming/{userId}")]
+        public async Task<ActionResult<List<CompletedBookingDTO>>> GetUpcomingBookings(int userId)
+        {
+            try
+            {
+                var upcomingBookings = await _bookingService.GetUpcomingBookings(userId);
+                return Ok(upcomingBookings);
+            }
+            catch (NoSuchUserException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("past/{userId}")]
+        public async Task<ActionResult<List<CompletedBookingDTO>>> GetPastBookings(int userId)
+        {
+            try
+            {
+                var pastBookings = await _bookingService.GetPastBookings(userId);
+                return Ok(pastBookings);
+            }
+            catch (NoSuchUserException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("DeleteOngoingBookings")]
+        public async Task<ActionResult> DeleteOngoingBookings()
+        {
+            await _bookingService.UpdateOngoingBookingsAndResetSeats();
+
+
+            return Ok();
+        }
+
+
+        //[HttpGet("ChangeStatusToCancel")]
+        //public async Task<ActionResult<Booking>> CancelBooking(int userId, int bookingId)
+        //{
+        //    var booking = await _bookingService.CancelBooking(userId, bookingId);
+        //    return Ok(booking);
+            
+        //}
+
+
+        [HttpGet("getcancelled/{userId}")]
+        public async Task<ActionResult<List<CompletedBookingDTO>>> GetCancelledBookings(int userId)
+        {
+            try
+            {
+                var cancelledBookings = await _bookingService.GetCancelledBookings(userId);
+                return Ok(cancelledBookings);
+            }
+            catch (BookingNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("cancel")]
+        public async Task<ActionResult> CancelBooking(int bookingId, int userId)
+        {
+            try
+            {
+                var cancelledBooking = await _bookingService.CancelBooking(userId, bookingId);
+                await _seatService.ChangeSeatAvailabilityForCancelledBookings();
+                return Ok();
+            }
+            catch (BookingNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+        //[HttpGet("cancel")]
+        //public async Task<ActionResult<RefundDTO>> CancelBooking(int bookingId, int userId)
+        //{
+        //    try
+        //    {
+        //        var cancelledBooking = await _bookingService.CancelBooking(userId, bookingId);
+        //        await _seatService.ChangeSeatAvailabilityForCancelledBookings();
+        //        var refund = await _busOperatorService.RefundRequest(userId);
+        //        return Ok(refund);
+        //    }
+        //    catch (BookingNotFoundException ex)
+        //    {
+        //        return NotFound(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex.Message);
+        //    }
+        //}
+
+
+
 
 
 
