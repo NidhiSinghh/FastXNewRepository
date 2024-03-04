@@ -5,13 +5,14 @@ import {
   SELECT_TRAVELDATE,
   // SELECT_BUS,
   // SELECT_SEATS,
-
   // FETCH_AVAILABLE_SEATS,
   // UPDATE_TOTAL_COST,
 
   SAVE_SELECTED_SEATS,
 
   SET_BUS_INFO,
+  RESET_SELECTED_SEATS,
+  SET_BOOKING_ID, 
 
 } from './Actions';
 
@@ -21,16 +22,15 @@ const initialState = {
   destination: '',
   travelDate: '',
   // selectedBus: null,
-  // selectedSeats: [],
-
-  selectedSeats: [],
 
   busName: '',
-  busType: ''
+  busType: '',
+  selectedSeats:[],  
+
 };
 
 // Reducers
-const originReducer = (state = initialState.origin, action) => {
+const originReducer = (state = initialState, action) => {
   switch (action.type) {
     case SELECT_ORIGIN:
       return {
@@ -42,7 +42,7 @@ const originReducer = (state = initialState.origin, action) => {
   }
 };
 
-const destinationReducer = (state = initialState.destination, action) => {
+const destinationReducer = (state = initialState, action) => {
   switch (action.type) {
     case SELECT_DESTINATION:
       return {
@@ -54,7 +54,7 @@ const destinationReducer = (state = initialState.destination, action) => {
   }
 };
 
-const travelDateReducer = (state = initialState.travelDate, action) => {
+const travelDateReducer = (state = initialState, action) => {
     switch (action.type) {
       case SELECT_TRAVELDATE:
         return {
@@ -85,16 +85,6 @@ const travelDateReducer = (state = initialState.travelDate, action) => {
 // };
 
 
-const saveSelectedSeatsReducer = (state = [], action) => {
-  switch (action.type) {
-    case SAVE_SELECTED_SEATS:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-
 
 // const availableSeatsReducer = (state = [], action) => {
 //   switch (action.type) {
@@ -118,7 +108,7 @@ const saveSelectedSeatsReducer = (state = [], action) => {
 
 const busInfoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_BUS_INFO':
+    case SET_BUS_INFO:
       return {
         ...state,
         busName: action.payload.busName,
@@ -129,6 +119,51 @@ const busInfoReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+// const saveSelectedSeatsReducer = (state = [], action) => {
+//   switch (action.type) {
+//     case SAVE_SELECTED_SEATS:
+//       return action.payload;
+//     default:
+//       return state;
+//   }
+// };
+
+// const reducer = (state = initialState, action) => {
+//   switch (action.type) {
+//     case RESET_SELECTED_SEATS:
+//       return {
+//         ...state,
+//         selectedSeats: [],
+//       };
+//     default:
+//       return state;
+//   }
+// };
+
+const saveSelectedSeatsReducer = (state = [], action) => {
+  switch (action.type) {
+    case SAVE_SELECTED_SEATS:
+      return action.payload;
+    case RESET_SELECTED_SEATS:
+      return [];
+    default:
+      return state;
+  }
+};
+
+
+// Reducer for bookingId
+const bookingIdReducer = (state = null, action) => {
+  switch (action.type) {
+    case SET_BOOKING_ID:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+
 
 
 
@@ -146,7 +181,11 @@ const rootReducer = combineReducers({
   // totalCost: totalCostReducer,
 
   selectedSeats: saveSelectedSeatsReducer,
-  busInfo: busInfoReducer
+  busInfo: busInfoReducer,
+  bookingId: bookingIdReducer,
+  // resetSeats: reducer
 });
+
+
 
 export default rootReducer;

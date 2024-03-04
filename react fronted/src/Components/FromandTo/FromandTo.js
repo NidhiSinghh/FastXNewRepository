@@ -14,14 +14,18 @@ function FromAndTo() {
     const dispatch = useDispatch(); // Initializing dispatch function
 
     const Origin = useSelector(state => state.origin); // Example usage of useSelector
-    console.log(Origin)
+    // console.log(Origin)
 
     const Destination = useSelector(state => state.destination); // Example usage of useSelector
-    console.log(Destination)
+    // console.log(Destination)
 
     // const [TravelDate, setDate] = useState('');
     const TravelDate = useSelector(state => state.travelDate); // Example usage of useSelector
-    console.log(TravelDate)
+    // console.log(TravelDate)
+    // const today = new Date().toISOString().split('T')[0]; // Get today's date in the format yyyy-mm-dd
+    const currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + 1);
+  const today = currentDate.toISOString().slice(0, 16);
 
     const handleSearch = async () => {
         try {
@@ -56,7 +60,7 @@ function FromAndTo() {
     return (
         <div>
             <Navbar/>
-            <Caraousel/>
+            <Caraousel />
             <div className={styles.fromAndTo}>
                 <div className={styles.a}>
                     <div className={styles.ikHMPa}>
@@ -64,7 +68,8 @@ function FromAndTo() {
                             <div className={styles.outerContainer}>
                                 <div className={styles.btnStyle}>
                                     <div className={styles.iconStyle}>
-                                        <i></i>
+                                    <i className="fa-solid fa-bus ${styles.newStyle}"></i>
+
                                         <div className={styles.outerinputStyle}>
                                             <div className={styles.inputStyle}>
                                                 <input
@@ -72,7 +77,9 @@ function FromAndTo() {
                                                     type="text"
                                                     placeholder="Source"
                                                     className={styles.inputStyleA}
+                                                    // value={Origin.origin}
                                                     value={Origin.origin}
+
                                                     onChange={handleOriginChange} // Using handleOriginChange to update Origin
                                                 />
                                                 <label htmlFor="src">From</label>
@@ -82,13 +89,16 @@ function FromAndTo() {
                                 </div>
                             </div>
                         </div>
-                        <div className={styles.jVMfHp}>
+                        {/* <div className={styles.jVMfHp}>
                             <i className={`${styles['fa-solid']} ${styles['fa-arrows-left-right']} ${styles.newStyle}`}></i>
+                        </div> */}
+                        <div className={styles.jVMfHp}>
+                <i className="fa-solid fa-arrows-left-right ${styles.newStyle}"></i>
                         </div>
                         <div className={styles.outerContainer}>
                             <div role="button" className={styles.btnStyle}>
                                 <div className={styles.destIcon}>
-                                    <i className={`${styles.destIconStyle} icon icon-dest`}></i>
+                                <i className="fa-solid fa-bus ${styles.newStyle}"></i>
                                     <div className={styles.outerinputStyle}>
                                         <div className={`${styles['sc-htoDjs']} inputStyle`}>
                                             <input
@@ -105,7 +115,7 @@ function FromAndTo() {
                                 </div>
                             </div>
                         </div>
-                        <input type="datetime-local" className={styles.c} value={TravelDate.travelDate} onChange={handleTravelDateChange} />
+                        <input type="datetime-local" min={today} className={styles.c} value={TravelDate.travelDate} onChange={handleTravelDateChange} />
                         <div className={styles.CalendarContainer}></div>
                         <button id="search_button" className={styles.busBtn} onClick={handleSearch}>
                             SEARCH BUSES
@@ -114,6 +124,7 @@ function FromAndTo() {
                 </div>
             </div>
         </div>
+        
     );
 }
 
