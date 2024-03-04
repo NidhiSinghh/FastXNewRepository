@@ -18,7 +18,7 @@ namespace FastX.Services
         private readonly ILogger<BusService> _logger;
 
         public SeatService(
-            
+
              ISeatRepository<int, Seat> seatRepository,
              IRepository<int, Bus> busRepository,
              IRepository<int, Ticket> ticketRepository,
@@ -84,9 +84,9 @@ namespace FastX.Services
 
         //}
 
-        public async Task ChangeSeatAvailablityAsync(int id)
+        public async Task ChangeSeatAvailablityAsync(int seatId, int busId)
         {
-            var seat = await _seatRepository.GetAsync(id);
+            var seat = await _seatRepository.GetAsync(busId, seatId);
             if (seat != null)
             {
                 seat.IsAvailable = false;
@@ -95,6 +95,43 @@ namespace FastX.Services
             }
 
         }
+
+        public async Task ChangeSeatAvailablity(int seatId, int busId)
+        {
+            var seat = await _seatRepository.GetAsync(busId, seatId);
+            if (seat != null)
+            {
+                seat.IsAvailable = true;
+                await _seatRepository.Update(seat);
+
+            }
+
+        }
+
+        public async Task ChangeSeatAvailabilityForCancelledBookings()
+        {
+            // Get all bookings
+            var allBookings = await _bookingRepository.GetAsync();
+
+            // Filter out the cancelled bookings
+            var cancelledBookings = allBookings.Where(b => b.Status == "cancelled");
+
+            // Iterate through cancelled bookings
+            foreach (var booking in cancelledBookings)
+            {
+                // Check if the booking has associated tickets
+                if (booking.Tickets != null && booking.Tickets.Any())
+                {
+                    // Iterate through tickets and change seat availability
+                    foreach (var ticket in booking.Tickets)
+                    {
+                        await ChangeSeatAvailablity(ticket.SeatId, booking.BusId);
+                    }
+                }
+            }
+        }
+
+
 
         public async Task<List<SeatDTOForUser>> GetAvailableSeats(int busId)
         {
@@ -132,23 +169,20 @@ namespace FastX.Services
             }
 
         }
-
-        
-
         public async Task<bool> CheckWhetherSeatIsAvailableForBooking(int busId, int seatId, DateTime date)
         {
             try
             {
-                var doesBusExist =await _busRepository.GetAsync(busId);
+                var doesBusExist = await _busRepository.GetAsync(busId);
                 if (doesBusExist == null)
                 {
                     throw new BusNotFoundException();
                 }
-                var seat = await _seatRepository.GetAsync(busId,seatId);
+                var seat = await _seatRepository.GetAsync(busId, seatId);
 
                 if (seat != null && seat.IsAvailable == false)
-                { 
-                   
+                {
+
                     throw new NoSeatsAvailableException();
                 }
 
@@ -158,9 +192,6 @@ namespace FastX.Services
                 _logger.LogInformation($"isTicketAvailable{isTicketAvailable}");
                 if (isTicketAvailable == true)
                 {
-
-
-
                     var isBookingComplete = tickets.Any(t => t.SeatId == seatId && t.BusId == busId &&
                                                  t.Booking != null &&
                                                  t.Booking.BusId == busId &&
@@ -172,25 +203,20 @@ namespace FastX.Services
                 }
                 else
                 {
-                    
                     return true;
                 }
             }
-            catch(Exception ex){
+            catch (Exception ex)
+            {
                 _logger.LogError($"An error occurred in CheckWhetherSeatIsAvailableForBooking: {ex.Message}");
                 throw;
 
             }
-
-                  
-
-
-
         }
 
-        public async Task<float> GetSeatPriceAsync(int seatId,int busId)
+        public async Task<float> GetSeatPriceAsync(int seatId, int busId)
         {
-           
+
             var seat = await _seatRepository.GetAsync(busId, seatId);
 
             if (seat != null)
@@ -220,7 +246,7 @@ namespace FastX.Services
                 {
                     if (busRoute.Route.TravelDate != null && busRoute.Route.TravelDate < currentDate)
                     {
-                        
+
                         busRoute.JourneyStatus = "Completed";
                     }
                 }
