@@ -39,6 +39,7 @@ function BusDetails() {
                 <p>Bus Type: {bus.busType}</p>
                 {/* Add more details if needed */}
               </div>
+              <br/>
             </div>
           ))}
         </div>
