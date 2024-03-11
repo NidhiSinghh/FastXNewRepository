@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from 'axios'; // Import Axios
 import './RegisterBusOperator.css';
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 
 function RegisterBusOperator() {
     var [username, setUsername] = useState("");
@@ -12,6 +13,7 @@ function RegisterBusOperator() {
     var [address, setAddress] = useState("");
 
     var user = {};
+    const navigate = useNavigate(); // Initialize useNavigate
 
     var register = (e) => {
         e.preventDefault();
@@ -28,20 +30,20 @@ function RegisterBusOperator() {
             headers: { 'Content-Type': 'application/json' },
             data: JSON.stringify(user)
         };
-        console.log(requestOptions)
 
         axios.post("http://localhost:5263/api/AllUser/Register", requestOptions.data, requestOptions)
-    .then(res => {
-        // Handle successful registration
-        console.log("Registration successful"); // For debugging
-        // Implement logic for successful registration, e.g., redirecting to login page
-    })
-    .catch(err => {
-        // Handle registration failure
-        console.error("Registration failed:", err); // For debugging
-        // Implement logic for handling registration failure, e.g., displaying error message
-    });
-            
+            .then(res => {
+                // Handle successful registration
+                // console.log("Registration successful"); // For debugging
+                window.alert("Registration successful!");
+                // Redirect to login page
+                navigate("/busoperatorlogin");
+            })
+            .catch(err => {
+                // Handle registration failure
+                console.error("Registration failed:", err); // For debugging
+                // Implement logic for handling registration failure, e.g., displaying error message
+            });
     };
     return (
         <div className="container">
@@ -86,7 +88,14 @@ function RegisterBusOperator() {
                                             <label>Address</label>
                                         </div>
                                         <div className="myform-button">
+                                            {/* <Link to="/loginbusoperator"> */}
                                             <button onClick={register} type="submit" className="myform-btn">Register</button>
+                                            {/* </Link> */}
+                                        </div>
+                                        <div>
+                                            <small className="form-text text-muted signup-text">Already Have an Account? <Link to="/busoperatorlogin">login</Link>
+                                            </small>
+                                            {/* <span className="signUPtext"><a href="/#" onClick={(e) => getToSignUp(e)}>Sign-Up</a></span> */}
                                         </div>
                                     </form>
                                 </div>

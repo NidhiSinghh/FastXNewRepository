@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import RefundRequest from '../RefundRequest/RefundRequest';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserId } from '../Redux/Actions';
+import DetailsContainer from '../DetailsContainer/DetailsContainer';
+import Navbar from '../Navbar/Navbar';
 
 
 
@@ -15,20 +17,10 @@ function BookingHistory() {
     const [bookingIdToCancel, setBookingIdToCancel] = useState('');
     const dispatch = useDispatch();
     const userId = sessionStorage.getItem('userId');
-        console.log("Retrieved userId from session storage:", userId); // Log userId retrieved from session storage
+        // console.log("Retrieved userId from session storage:", userId); // Log userId retrieved from session storage
 
 
     useEffect(() => {
-        
-        
-        // if (userId) {
-        //     console.log("Dispatching setUserId action with userId:", userId);
-        //     dispatch(setUserId(userId));
-        // } else {
-        //     console.error("userId is empty or undefined. Cannot dispatch setUserId action.");
-        // }
-
-        // dispatch(setUserId(userId));
 
         const fetchPastBookings = async () => {
             try {
@@ -103,6 +95,8 @@ function BookingHistory() {
 
     return (
         <div>
+            <Navbar/>
+            <br/>
             <div className="container-fluid status-container">
                 <ul className="nav nav-tabs statustabs">
                     <li className="nav-item tab-item">
@@ -125,14 +119,8 @@ function BookingHistory() {
                             <div className="bookingBusListingContainer">
                                 <div className="busCardContainer">
                                     {upcomingBookings.map(booking => (
-                                        <div key={booking.bookingId} className="busCard">
-                                            <h2>Bus 1 Details</h2>
-                                            <p>Bus Name: {booking.busName}</p>
-                                            <p>Bus Type: {booking.busType}</p>
-                                            <p>Booked For Which Date: {booking.bookedForWhichDate}</p>
-                                            <p>Origin: {booking.origin}</p>
-                                            <p>Destination: {booking.destination}</p>
-                                            <p>Seat Numbers: {booking.seatNumbers}</p>
+                                        <div key={booking.bookingId} className="historyBusCard">
+                                            <DetailsContainer booking={booking} />
                                             <button onClick={() => confirmCancellation(booking.bookingId)} className="btn btn-danger">Cancel Booking</button>
                                         </div>
                                     ))}
@@ -148,15 +136,8 @@ function BookingHistory() {
                             <div className="busListingContainer">
                                 <div className="busCardContainer">
                                     {cancelledBookings.map(booking => (
-                                        <div key={booking.bookingId} className="busCard">
-                                            <h2>Bus 1 Details</h2>
-                                            <p>Bus Name: {booking.busName}</p>
-                                            <p>Bus Type: {booking.busType}</p>
-                                            <p>Booked For Which Date: {booking.bookedForWhichDate}</p>
-                                            <p>Origin: {booking.origin}</p>
-                                            <p>Destination: {booking.destination}</p>
-                                            <p>Seat Numbers: {booking.seatNumbers}</p>
-                                            <p>Status: {booking.status}</p>
+                                        <div key={booking.bookingId} className="historyBusCard">
+                                            <DetailsContainer booking={booking} />
                                         </div>
                                     ))}
                                 </div>
@@ -171,15 +152,8 @@ function BookingHistory() {
                             <div className="busListingContainer">
                                 <div className="busCardContainer">
                                     {pastBookings.map(booking => (
-                                        <div key={booking.bookingId} className="busCard">
-                                            <h2>Bus 1 Details</h2>
-                                            <p>Bus Name: {booking.busName}</p>
-                                            <p>Bus Type: {booking.busType}</p>
-                                            <p>Booked For Which Date: {booking.bookedForWhichDate}</p>
-                                            <p>Origin: {booking.origin}</p>
-                                            <p>Destination: {booking.destination}</p>
-                                            <p>Ticket Count: {booking.ticketCount}</p>
-                                            <p>Seat Numbers: {booking.seatNumbers}</p>
+                                        <div key={booking.bookingId} className="historyBusCard">
+                                            <DetailsContainer booking={booking} />
                                         </div>
                                     ))}
                                 </div>

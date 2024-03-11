@@ -1,5 +1,5 @@
-.bsw {
-    background: #0a223d;
+/* .bsw {
+    background: #5d8cc2;
     padding: 11px 0;
     width: 100%;
     position: sticky;
@@ -17,11 +17,9 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
 }
-.bsw .bsw_inputBox {
-    max-width: 190px;
-}
 
 .bsw .bsw_inputBox {
+    max-width: 190px;
     padding: 4px 9px;
     background: hsla(0,0%,100%,.1);
     border-radius: 4px;
@@ -53,9 +51,11 @@
     font-size: calc(var(--font-scale, 1) * 12px);
     line-height: 12px;
 }
+
 .appendBottom5 {
     margin-bottom: 5px;
 }
+
 .capText {
     text-transform: uppercase;
 }
@@ -70,47 +70,47 @@
 .whiteText {
     color: #ffffff;
 }
+
 .font16 {
     font-size: calc(var(--font-scale, 1) * 16px);
     line-height: 16px;
 }
+
 .truncate {
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .marR8 {
     margin-right: 8px!important;
 }
+
 .swap-icon {
     background-position: -66px -448px;
     width: 15px;
     height: 11px;
 }
+
 .bsw .bsw_inputBox {
     max-width: 190px;
 }
-.bsw .bsw_inputBox {
-    padding: 4px 9px;
-    background: hsla(0,0%,100%,.1);
-    border-radius: 4px;
-    margin-right: 5px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
+
 .selectCityContainer {
     width: 216px;
     height: 44px;
     border-radius: 8px!important;
 }
+
 .makeFlex.column {
     flex-direction: column;
 }
+
 .bsw .lbl_input {
     text-transform: uppercase;
 }
+
 .bsw .bsw_inputBox {
     max-width: 190px;
 }
@@ -124,17 +124,21 @@
     flex-direction: column;
     position: relative;
 }
+
 .selectCityContainer {
     width: 216px;
     height: 44px;
     border-radius: 8px!important;
 }
+
 .appendLeft12 {
     margin-left: 12px;
 }
+
 .appendBottom8 {
     margin-bottom: 8px;
 }
+
 .bsw .dates input {
     opacity: 0;
     position: absolute;
@@ -145,32 +149,40 @@
     left: 0;
     z-index: 1;
 }
+
 .bsw .bsw_inputField {
     border: 0;
     outline: 0;
     background: none;
     cursor: pointer;
 }
+
 .whiteText {
     color: #ffffff;
 }
+
 .latoRegular {
     font-weight: 400;
 }
+
 .font16 {
     font-size: calc(var(--font-scale, 1) * 16px);
     line-height: 16px;
 }
+
 .appendLeft12 {
     margin-left: 12px;
 }
+
 .latoBlack {
     font-weight: 900;
 }
+
 .font18 {
     font-size: calc(var(--font-scale, 1) * 18px);
     line-height: 18px;
 }
+
 .widgetSearchBtn, .widgetSearchBtnNew {
     background: #008cff;
     border: 1px solid #008cff;
@@ -181,47 +193,50 @@
     color: #fff;
 }
 
-
-
-/* ________________________ */
-
-
 .busListingContainer .busCard {
     -webkit-font-smoothing: antialiased;
     width: 100%;
     border-radius: 16px 16px 0 0;
     padding: 16px 20px;
 }
+
 .makeFlex {
     display: flex;
 }
+
 .busListingContainer .busCard .busInfo {
     width: 18vw;
     margin-right: 50px;
 }
+
 .makeFlex.column {
     flex-direction: column;
 }
+
 .appendBottom22 {
     margin-bottom: 22px;
 }
+
 html[dir='ltr'] .appendRight15 {
     margin-right: 15px;
 }
+
 .makeFlex.hrtlCenter {
     align-items: center;
 }
 
+.makeFlex {
+    display: flex;
+}
 
 .makeFlex {
     display: flex;
 }
+
 .makeFlex {
     display: flex;
 }
-.makeFlex {
-    display: flex;
-}
+
 .nowrapStyle, .truncate {
     white-space: nowrap;
 }
@@ -229,15 +244,19 @@ html[dir='ltr'] .appendRight15 {
 .makeFlex.row {
     flex-direction: row;
 }
+
 .makeFlex.alignSelfStart {
     align-self: flex-start;
 }
+
 .blackText {
     color: #000000;
 }
+
 .latoBlack {
     font-weight: 900;
 }
+
 .latoBold {
     font-weight: 700;
 }
@@ -246,12 +265,14 @@ html[dir='ltr'] .appendRight15 {
     font-size: calc(var(--font-scale, 1) * 18px);
     line-height: 18px;
 }
+
 .busListingContainer .line-border-top {
     width: 29px;
     height: 1px;
     margin: 13px 8px 10px;
     border-top: 1.4px solid #e7e7e7;
 }
+
 .busListingContainer .line-border-top {
     width: 29px;
     height: 1px;
@@ -264,18 +285,19 @@ html[dir='ltr'] .appendRight15 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* margin-left: auto; */
 }
+
 .makeFlex.end {
     align-items: flex-end;
 }
+
 .makeFlex.column {
     flex-direction: column;
 }
+
 .makeFlex.spaceBetween {
     justify-content: space-between;
 }
-
 
 .busListingContainer .detailHeader {
     display: flex;
@@ -284,15 +306,18 @@ html[dir='ltr'] .appendRight15 {
     cursor: pointer;
     color: #757575;
 }
+
 html[dir='ltr'] .appendRight5 {
     margin-right: 5px;
 }
+
 .downArrowSmallIcon {
     background-position: -192px -59px;
     width: 7px;
     height: 5px;
     padding: 3px;
 }
+
 .fnCpOO {
     box-sizing: border-box;
     width: 180px;
@@ -322,9 +347,11 @@ html[dir='ltr'] .appendRight5 {
     line-height: 28px;
     color: rgb(0, 0, 0);
 }
+
 html[dir='ltr'] .appendRight10 {
     margin-right: 10px;
 }
+
 .ezyJCX {
     background-color: rgb(26, 121, 113);
     width: 40px;
@@ -338,31 +365,34 @@ html[dir='ltr'] .appendRight10 {
     color: rgb(255, 255, 255);
     margin-right: 10px;
 }
+
 .starIcon {
     background-position: -132px -56px;
     width: 9px;
     height: 9px;
 }
+
 .bfoMHl {
     font-weight: bold;
     font-size: 14px;
 }
+
 .appendRight26 {
     margin-right: 26px;
 }
+
 .makeFlex {
     display: flex;
 }
 
-
 .makeFlex.end {
     align-items: flex-end;
 }
+
 .line-top{
     width:505.68px;
     height:15px;
     color:black;
-
 }
 
 #buslist{
@@ -371,16 +401,15 @@ html[dir='ltr'] .appendRight10 {
 
 .busListingContainer .busCardContainer {
     background-color: #fff;
-    width: 700px;
     margin: 15px 0 0;
     border-radius: 16px;
     border: 1px solid #e7e7e7;
-    position: relative; /* Add position relative to create a positioning context */
+    position: relative; 
 }
 
 .busListingContainer .busCardFooter {
-    position: absolute; /* Position absolute to place it at the bottom */
-    bottom: 0; /* Align it to the bottom */
+    position: absolute; 
+    bottom: 0; 
     left: 0;
     right: 0;
     background-color: #fff;
@@ -390,36 +419,10 @@ html[dir='ltr'] .appendRight10 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-/* .busListingContainer .busCardFooter {
-    background-color: #fff;
-    padding: 8px 16px;
-    border-top: 1px solid #e7e7e7;
-    border-radius: 0 0 16px 16px;
-    display: flex;
-    align-items: center;
-
 } */
 
 
 
-.makeFlex.row.appendBottom20.alignSelfStart.hrtlCenter {
-    margin-right: 0; /* Set margin-right to 0 */
-}
-
-.makeFlex.row.appendBottom20.alignSelfStart.hrtlCenter > div {
-    margin-right: 20px; /* Adjust the margin to your preference */
-}
-
-
-@media only screen and (max-width: 768px) {
-    /* Add styles specific for smaller screens here */
-    body {
-        font-size: 14px;
-    }
-
-    /* Adjust other styles as needed */
-}
 
 
 
@@ -438,86 +441,146 @@ html[dir='ltr'] .appendRight10 {
 
 
 
-/* ------------side filter style */
-/* styles.css */
-
-/* Body styles */
-/* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f2f2f2;
-} */
-
-/* Sidebar styles */
-.sidebar {
-    width: 250px;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    float: left; /* Float the sidebar to the left */
-}
-
-.sidebar h2 {
-    margin-bottom: 20px;
-    font-size: 18px;
-    color: #333;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar li {
-    margin-bottom: 15px;
-}
-
-.sidebar input[type="checkbox"] {
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.sidebar label {
-    cursor: pointer;
-    font-size: 16px;
-    color: #555;
-}
-
-/* Checkbox custom styling */
-.sidebar input[type="checkbox"] + label:before {
-    content: "";
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    border: 2px solid #ccc;
-    border-radius: 3px;
-    margin-right: 8px;
-    vertical-align: middle;
-    transition: border-color 0.3s;
-}
-
-.sidebar input[type="checkbox"]:checked + label:before {
-    background-color: #007bff;
-    border-color: #007bff;
-}
 
 
 
 
 
-
-.amenities-dropdown-below {
-    position: absolute;
-    top: 100%; /* Position the dropdown below the parent element */
-    left: 0;
-    background-color: #fff; /* Set your desired background color */
-    border: 1px solid #ccc; /* Set your desired border style and color */
-    padding: 10px; /* Adjust the padding as needed */
-    z-index: 1; /* Ensure the dropdown appears above other content */
-    width: relative;
-    border-radius: 25px;
-
-    
+/* table {
+    border-collapse: collapse;
+    width: 100%;
   }
+  td, th {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
+  }
+  th {
+    background-color: #ddd;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  } */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://images.ctfassets.net/nutlwuf1v0oy/CHozoWVfMLuaEDws4Hqi2/29d06c83b4df1ff9c736259cc8dc295c/home-banner.e085cf784a2737ee155a1ebbeb6615e8.jpg?fm=jpg');
+      background-size: cover;
+      background-position: center;
+    } */
+
+    /* header {
+      background-color: #204a7c;
+      color: #ffffff;
+      padding: 5px 0;
+      text-align: center;
+      font-size: 1.2em;
+    } */
+
+    .busdetails1 {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        transform: scale(1);
+        transition: transform 0.3s ease-in-out;
+        color: #ffffff;
+      }
+  
+      .busdetails1:hover {
+        transform: scale(1.02);
+      }
+  
+      /* h2 {
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 30px;
+      } */
+  
+      .busdetailstable {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.5); /* Slightly transparent white for the table */
+      }
+  
+      th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        color: #000000; /* Table text color set to black */
+      }
+  
+      th {
+        background-color: #3498db;
+        color: #ffffff;
+      }
+  
+      td {
+        background-color: #f9f9f9;
+      }
+  
+      /* button {
+        background-color: #dc3545;
+        color: #fff;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+  
+      button:hover {
+        background-color: #c82333;
+      }
+  
+      .dashboard-link {
+        text-align: center;
+        margin-top: 20px;
+      }
+  
+      .dashboard-link a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+  
+      .dashboard-link a:hover {
+        text-decoration: underline;
+      } */
+
+
+      .detailscontinueButton {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 50px;
+    }
+    
+    .detailscontinueButton:hover {
+        background-color: #0056b3;
+    }
+    

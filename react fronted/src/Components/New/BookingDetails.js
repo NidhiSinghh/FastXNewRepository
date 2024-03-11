@@ -117,16 +117,22 @@ const seatIds = [...seatIdsSet]; // Convert Set back to array if needed
    
     <tr>
       <td>Origin</td>
-      <td>Mumbai</td>
+      <td>{origin.origin}</td>
     </tr>
 
     <tr>
       <td>Destination</td>
-      <td>Mumbai</td>
+      <td>{destination.destination}</td>
+    </tr>
+
+    
+    <tr>
+      <td>Bus Name</td>
+      <td> {busInfo.busName}</td>
     </tr>
     <tr>
       <td>Bus Type</td>
-      <td>Mumbai</td>
+      <td>{busInfo.busType}</td>
     </tr>
     <tr>
       <td>Travel Date</td>
@@ -164,6 +170,11 @@ const seatIds = [...seatIdsSet]; // Convert Set back to array if needed
       <td>{totalPrice}</td>
     </tr>
     </table>
+
+    {/* <Link to="/payment">
+      
+                <button className="continueButton" onClick={handleBooking}>Continue</button>
+                 </Link> */}
     </div>
 
 

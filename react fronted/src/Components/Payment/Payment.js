@@ -1,7 +1,9 @@
+import './Payment.css';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 function Payment(){
     const bookingId = useSelector(state => state.bookingId);
-    console.log(bookingId);
+    // console.log(bookingId);
 
     const handlePayment = async () => {
         const paymentData = {
@@ -19,7 +21,7 @@ function Payment(){
   
             if (response.ok) {
                   // setBookingId(data.bookingId); // Set booking ID received from API response
-                  console.log('Payment successful');
+                //   console.log('Payment successful');
                 // Redirect or perform any other actions upon successful booking
   
                 // const data = await response.json();
@@ -35,9 +37,9 @@ function Payment(){
     return(
 
         <div>
-            <button 
-            onClick={handlePayment}>Pay
-            </button>
+            <Link to="/paymentsuccess">
+            <button className="paymentcontinueButton" onClick={handlePayment}>Confirm Payment</button>
+            </Link>
         </div>
 
     );
